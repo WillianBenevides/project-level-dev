@@ -1,0 +1,20 @@
+services:
+  twitter-api:
+    build: .
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./twitter-api:/usr/src/twitter-api
+      - bundle:/usr/local/bundle
+    command: ./bin/docker-entrypoint.sh
+  client:
+    build:
+      context: .
+      dockerfile: Dockerfile.ts
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./client:/usr/src/client
+    command: yarn dev
+volumes:
+  bundle:
